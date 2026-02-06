@@ -6,12 +6,13 @@ export async function createUser(name: string, email: string) {
   }
 
   const { error } = await supabaseServer
-    .from("users")
+    .from("user")
     .insert({ name, email });
 
   if (error) {
     throw error;
   }
+  
 
   return { success: true };
 }
