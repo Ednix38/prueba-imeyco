@@ -1,0 +1,43 @@
+name: CI/CD Astro
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Descargar el código
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Configurar Node
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3️⃣ Instalar dependencias
+      - name: Install dependencies
+        run: npm install
+
+      # 4️⃣ Ejecutar tests (si existen)
+      - name: Run tests
+        run: npm test
+        continue-on-error: false
+
+      # 5️⃣ Build del proyecto Astro
+      - name: Build project
+        run: npm run build
+
+      # 6️⃣ Deploy a Vercel
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
