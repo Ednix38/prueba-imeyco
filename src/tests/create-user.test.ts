@@ -2,13 +2,14 @@ import { describe, it, expect, vi } from "vitest";
 import { createUser } from "../services/user.service";
 
 // Mock de supabase
-vi.mock("../lib/supabase", () => ({
-  supabase: {
+vi.mock("../lib/supabase.server", () => ({
+  supabaseServer: {
     from: () => ({
-      insert: () => ({ error: null })
-    })
-  }
+      insert: async () => ({ error: null }),
+    }),
+  },
 }));
+
 
 describe("createUser", () => {
   it("crea usuario correctamente", async () => {

@@ -41,3 +41,14 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: '--prod'
+
+      # mensaje whatsapp
+      - name: Notify WhatsApp
+        if: success()
+        run: node scripts/notify-whatsapp.js
+        env:
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          PHONE_NUMBER_ID: ${{ secrets.PHONE_NUMBER_ID }}
+          WHATSAPP_RECIPIENT: ${{ secrets.WHATSAPP_RECIPIENT }}
+          DEPLOY_MESSAGE: "🚀 Nuevo deploy en Vercel! Proyecto: ${{ github.repository }} Branch: ${{ github.ref }} URL: https://tu-proyecto.vercel.app"
+
