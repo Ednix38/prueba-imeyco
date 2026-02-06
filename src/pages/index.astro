@@ -5,24 +5,12 @@ import Layout from '../layouts/Layout.astro';
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
-<form
-  method="POST"
-  action="/api/create-user"
-  enctype="application/x-www-form-urlencoded"
->
-  <input
-    type="text"
-    name="name"
-    placeholder="Nombre"
-    required
-  />
+<form method="POST" action="/api/create-user">
+  <input name="name" required />
+  <input type="email" name="email" required />
+  <button type="submit">Enviar</button>
+</form>
 
-  <input
-    type="email"
-    name="email"
-    placeholder="Correo electrónico"
-    required
-  />
 
   <button type="submit">Enviar</button>
 </form>

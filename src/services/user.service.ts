@@ -1,16 +1,16 @@
-import { supabase } from "../lib/supabase";
+import { supabaseServer } from "../lib/supabase.server.ts";
 
-export async function createUser(email: string, name: string) {
-  if (!email || !name) {
-    throw new Error("Datos requeridos");
+export async function createUser(name: string, email: string) {
+  if (!name || !email) {
+    return { success: false, message: "Datos requeridos" };
   }
 
-  const { error } = await supabase
-    .from("user")
-    .insert({ email, name });
+  const { error } = await supabaseServer
+    .from("users")
+    .insert({ name, email });
 
   if (error) {
-    throw new Error(error.message);
+    throw error;
   }
 
   return { success: true };
